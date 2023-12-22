@@ -1,11 +1,23 @@
+# Directories to ignore that comes with the OS
+.DS_STORE/
+
+# CMake files and folders to ignore
 CMakeLists.txt.user
 CMakeCache.txt
-CMakeFiles
-CMakeScripts
+CMakeFiles/
+CMakeScripts/
 Testing
 Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
-_deps
+_deps/
+
+# Build files and folders
+.build/
+
+# Config files
+.breakpoints
+.replit
+replit.nix
