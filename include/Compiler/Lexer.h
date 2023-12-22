@@ -1,8 +1,10 @@
 #pragma once
 
-#include <string_view>
 #include <vector>
+#include <string_view>
 #include <utility.h>
+
+#define DEBUG_MODE 1
 
 class Lexer {
 public:
