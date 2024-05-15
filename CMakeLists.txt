@@ -1,20 +1,19 @@
-cmake_minimum_required (VERSION 3.12)
-project (glacier CXX)
+cmake_minimum_required(VERSION 3.20.1)
+project(glacier LANGUAGES CXX VERSION 0.1.0)
+cmake_policy(SET CMP0016 NEW)
 
-SET(CMAKE_EXPORT_COMPILE_COMMANDS 1)
-SET(CMAKE_CXX_COMPILER "clang++")
-SET(CMAKE_CXX_STANDARD 20)
-SET(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES  ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O2 -fbounds-checking -fsanitize=address")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O2 -fbounds-checking -fsanitize=address")
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories(include)
-file(GLOB SRC src/*.cpp COMPILER Compiler/*.cpp)
-add_executable(${PROJECT_NAME} ${SRC} ${COMPILER})
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  set(CMAKE_CXX_EXTENSIONS OFF)
+  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+endif()
 
-add_custom_target(
-        copy-compile-commands ALL
-        ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_BINARY_DIR}/compile_commands.json
-        ${CMAKE_CURRENT_LIST_DIR}
+add_executable(${PROJECT_NAME}
+  src/glacier.cpp
+)
+
+add_subdirectory(
+  Compiler/
 )
