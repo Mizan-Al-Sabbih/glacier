@@ -5,15 +5,28 @@ cmake_policy(SET CMP0016 NEW)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_subdirectory(
-  Compiler/
-)
+if(MSVC)
+  add_compile_options(/W4 /permissive-)
+else()
+  add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
 
-add_executable(glacier
-  src/glacier.cpp
-)
+set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 
-target_link_libraries(glacier PRIVATE frontend_lexer)
-target_include_directories(glacier PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_lexer)
+add_subdirectory(Compiler)
+
+add_executable(glacier src/glacier.cpp)
+
+target_link_libraries(glacier PRIVATE
+  frontend_lexer
+  frontend_ast
+)
+target_include_directories(glacier PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_lexer
+  ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_ast
+)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")

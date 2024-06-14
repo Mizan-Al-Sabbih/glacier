@@ -1,1 +1,0 @@
-add_library(frontend_lexer SHARED lexer.cpp lexer.h)
