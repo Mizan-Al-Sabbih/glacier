@@ -8,6 +8,7 @@ bool is_whitespace(char c) {
 
 const std::unordered_map<std::string, TokenType> Lexer::keywords = {
   {"var", TokenType::K_Variable},
+  {"let", TokenType::K_Let},
   {"func", TokenType::K_Function},
   {"if", TokenType::K_If},
   {"else", TokenType::K_Else},

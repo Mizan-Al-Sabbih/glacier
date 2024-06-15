@@ -21,9 +21,11 @@ target_link_libraries(glacier PRIVATE
   frontend_lexer
   frontend_ast
 )
+
 target_include_directories(glacier PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_lexer
   ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_ast
+  ${CMAKE_CURRENT_SOURCE_DIR}/Compiler
 )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
