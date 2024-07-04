@@ -14,8 +14,8 @@ compile_commands.json
 CTestTestfile.cmake
 _deps/
 
-# Build files and folders
-.build/
+build/
+.cache/
 
 # Config files
 .breakpoints

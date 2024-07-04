@@ -13,22 +13,13 @@ endif()
 
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 
-add_subdirectory(Compiler)
+add_subdirectory(Compiler/)
 
 add_executable(glacier src/glacier.cpp)
 
-target_link_libraries(glacier PRIVATE
-  frontend_lexer
-  frontend_ast
-)
-
-target_include_directories(glacier PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_lexer
-  ${CMAKE_CURRENT_SOURCE_DIR}/Compiler/frontend_ast
-  ${CMAKE_CURRENT_SOURCE_DIR}/Compiler
+target_link_libraries(glacier PUBLIC
+  compiler_lib
 )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")

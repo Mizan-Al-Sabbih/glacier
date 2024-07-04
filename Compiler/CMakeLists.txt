@@ -1,19 +1,21 @@
-add_library(frontend_lexer SHARED
-  frontend_lexer/lexer.cpp
-  frontend_lexer/lexer.h
+add_subdirectory(
+  frontend_lexer/
+  frontend_ast/
 )
 
-target_include_directories(frontend_lexer PUBLIC
-  ${CMAKE_CURRENT_SOURCE_DIR}/frontend_lexer
-  ${CMAKE_CURRENT_SOURCE_DIR}
+set(SOURCES
+  compiler.cpp
+  compiler.h
 )
 
-add_library(frontend_ast SHARED
-  frontend_ast/ast.cpp
-  frontend_ast/ast.h
+add_library(compiler_lib SHARED
+  ${SOURCES}
 )
 
-target_include_directories(frontend_ast PUBLIC
-  ${CMAKE_CURRENT_SOURCE_DIR}/frontend_ast
-  ${CMAKE_CURRENT_SOURCE_DIR}
+target_link_libraries(compiler_lib PUBLIC
+  frontend_lexer
+  frontend_ast
 )
+
+target_include_directories(compiler_lib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+
