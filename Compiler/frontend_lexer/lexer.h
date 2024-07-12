@@ -1,14 +1,12 @@
 #pragma once
 
-#include <vector>
+#include <memory>
 #include <string>
 #include <string_view>
 #include <unordered_map>
-#include <memory>
+#include <vector>
 
-#include "../utility.h"
-
-namespace Compiler {
+#include "utility.h"
 
 class Lexer {
 public:
@@ -28,5 +26,3 @@ private:
   std::string_view content;
   unsigned int index;
 };
-
-}

@@ -1,7 +1,5 @@
-add_subdirectory(
-  frontend_lexer/
-  frontend_ast/
-)
+add_subdirectory(frontend_lexer/)
+add_subdirectory(frontend_ast/)
 
 set(SOURCES
   compiler.cpp

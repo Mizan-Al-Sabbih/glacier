@@ -1,50 +1,31 @@
 #include "lexer.h"
 
-namespace Compiler {
-
-bool is_whitespace(char c) {
-  return c == ' ' || c == '\t' || c == '\n';
-}
+bool is_whitespace(char c) { return c == ' ' || c == '\t' || c == '\n'; }
 
 const std::unordered_map<std::string, TokenType> Lexer::keywords = {
-  {"var", TokenType::K_Variable},
-  {"let", TokenType::K_Let},
-  {"func", TokenType::K_Function},
-  {"if", TokenType::K_If},
-  {"else", TokenType::K_Else},
-  {"for", TokenType::K_For},
-  {"while", TokenType::K_While},
-  {"return", TokenType::K_Return},
-  {"break", TokenType::K_Break},
-  {"continue", TokenType::K_Continue},
-  {"switch", TokenType::K_Switch},
-  {"case", TokenType::K_Case},
-  {"default", TokenType::K_Default},
-  {"struct", TokenType::K_Struct},
-  {"class", TokenType::K_Class},
-  {"enum", TokenType::K_Enum},
-  {"import", TokenType::K_Import},
-  {"true", TokenType::K_True},
-  {"false", TokenType::K_False},
-  {"none", TokenType::K_None},
-  {"and", TokenType::K_And},
-  {"or", TokenType::K_Or},
-  {"not", TokenType::K_Not},
-  {"not_equal", TokenType::K_NotEqual},
-  {"equal", TokenType::K_Equal},
-  {"super", TokenType::K_Super},
-  {"self", TokenType::K_Self},
-  {"String", TokenType::K_String},
-  {"Int", TokenType::K_Integer},
-  {"Float", TokenType::K_Float},
-  {"Bool", TokenType::K_Boolean},
+    {"var", TokenType::K_Variable},    {"let", TokenType::K_Let},
+    {"func", TokenType::K_Function},   {"if", TokenType::K_If},
+    {"else", TokenType::K_Else},       {"for", TokenType::K_For},
+    {"while", TokenType::K_While},     {"return", TokenType::K_Return},
+    {"break", TokenType::K_Break},     {"continue", TokenType::K_Continue},
+    {"switch", TokenType::K_Switch},   {"case", TokenType::K_Case},
+    {"default", TokenType::K_Default}, {"struct", TokenType::K_Struct},
+    {"class", TokenType::K_Class},     {"enum", TokenType::K_Enum},
+    {"import", TokenType::K_Import},   {"true", TokenType::K_True},
+    {"false", TokenType::K_False},     {"none", TokenType::K_None},
+    {"and", TokenType::K_And},         {"or", TokenType::K_Or},
+    {"not", TokenType::K_Not},         {"not_equal", TokenType::K_NotEqual},
+    {"equal", TokenType::K_Equal},     {"super", TokenType::K_Super},
+    {"self", TokenType::K_Self},       {"String", TokenType::K_String},
+    {"Int", TokenType::K_Integer},     {"Float", TokenType::K_Float},
+    {"Bool", TokenType::K_Boolean},
 };
 
 char Lexer::peak(int offset) const {
-    if (index + offset < content.length()) {
-      return content.at(index + offset);
-    }
-    return '\0';
+  if (index + offset < content.length()) {
+    return content.at(index + offset);
+  }
+  return '\0';
 }
 
 char Lexer::consume(int offset) {
@@ -73,7 +54,7 @@ std::vector<Token> Lexer::analyze() {
 
   while (index < content.size()) {
     char ch = content.at(index);
-    TokenType curr_type { TokenType::Unknown };
+    TokenType curr_type{TokenType::Unknown};
 
     if (is_whitespace(ch)) {
       consume();
@@ -83,44 +64,44 @@ std::vector<Token> Lexer::analyze() {
     unsigned int start = index;
 
     switch (ch) {
-      case '=':
-        curr_type = TokenType::Equals;
-        consume();
-        break;
-      case '(':
-        curr_type = TokenType::LeftParen;
-        consume();
-        break;
-      case ')':
-        curr_type = TokenType::RightParen;
-        consume();
-        break;
-      case '{':
-        curr_type = TokenType::LeftBrace;
-        consume();
-        break;
-      case '}':
-        curr_type = TokenType::RightBrace;
-        consume();
-        break;
-      case '[':
-        curr_type = TokenType::LeftBracket;
-        consume();
-        break;
-      case ']':
-        curr_type = TokenType::RightBracket;
-        consume();
-        break;
-      case ',':
-        curr_type = TokenType::Comma;
-        consume();
-        break;
-      case '.':
-        curr_type = TokenType::Dot;
-        consume();
-        break;
-      default:
-        break;
+    case '=':
+      curr_type = TokenType::Equals;
+      consume();
+      break;
+    case '(':
+      curr_type = TokenType::LeftParen;
+      consume();
+      break;
+    case ')':
+      curr_type = TokenType::RightParen;
+      consume();
+      break;
+    case '{':
+      curr_type = TokenType::LeftBrace;
+      consume();
+      break;
+    case '}':
+      curr_type = TokenType::RightBrace;
+      consume();
+      break;
+    case '[':
+      curr_type = TokenType::LeftBracket;
+      consume();
+      break;
+    case ']':
+      curr_type = TokenType::RightBracket;
+      consume();
+      break;
+    case ',':
+      curr_type = TokenType::Comma;
+      consume();
+      break;
+    case '.':
+      curr_type = TokenType::Dot;
+      consume();
+      break;
+    default:
+      break;
     }
 
     if (ch == '\"') {
@@ -155,6 +136,4 @@ std::vector<Token> Lexer::analyze() {
   }
 
   return tokens;
-}
-
 }

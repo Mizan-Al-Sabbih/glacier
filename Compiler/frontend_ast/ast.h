@@ -1,12 +1,10 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "../utility.h"
-
-namespace Compiler {
 
 class ASTNode {
 public:
@@ -15,16 +13,15 @@ public:
 
 using ASTNodePtr = std::shared_ptr<ASTNode>;
 
-class Expression : public ASTNode {
-};
+class Expression : public ASTNode {};
 
-class Statement : public ASTNode {
-};
+class Statement : public ASTNode {};
 
 class VariableDeclaration : public Statement {
 public:
-  VariableDeclaration(const std::string &name, ASTNodePtr initializer, Span span)
-    : name(name), initializer(initializer), span(span) {}
+  VariableDeclaration(const std::string &name, ASTNodePtr initializer,
+                      Span span)
+      : name(name), initializer(initializer), span(span) {}
 
   std::string name;
   ASTNodePtr initializer;
@@ -33,8 +30,9 @@ public:
 
 class BinaryExpression : public Expression {
 public:
-  BinaryExpression(const std::string &op, ASTNodePtr left, ASTNodePtr right, Span span)
-    : op(op), left(left), right(right), span(span) {}
+  BinaryExpression(const std::string &op, ASTNodePtr left, ASTNodePtr right,
+                   Span span)
+      : op(op), left(left), right(right), span(span) {}
 
   std::string op;
   ASTNodePtr left;
@@ -52,16 +50,10 @@ public:
 
 class AST {
 public:
-  void add_node(ASTNodePtr node) {
-    nodes.push_back(node);
-  }
+  void add_node(ASTNodePtr node) { nodes.push_back(node); }
 
-  const std::vector<ASTNodePtr>& get_nodes() const {
-    return nodes;
-  }
+  const std::vector<ASTNodePtr> &get_nodes() const { return nodes; }
 
 private:
   std::vector<ASTNodePtr> nodes;
 };
-
-}
