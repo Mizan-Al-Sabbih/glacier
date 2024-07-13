@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../utility.h"
+#include "utility.h"
 
 class ASTNode {
 public:
