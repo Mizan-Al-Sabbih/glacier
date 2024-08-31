@@ -10,7 +10,7 @@
 
 class Lexer {
 public:
-  explicit Lexer(const std::string filepath) {
+  explicit Lexer(const std::string &filepath) {
     std::ifstream file(filepath);
     if (!file) {
       std::cerr << "Failed to open file: " << filepath << std::endl;
@@ -29,11 +29,13 @@ private:
 
   char consume(int offset = 1);
 
-  bool is_whitespace(char ch);
+  bool is_whitespace(char);
 
-  TokenType get_keyword(const std::string &value) const;
+  TokenType get_keyword(const std::string &) const;
 
-  TokenType get_punctuator();
+  TokenType get_punctuator(const char &);
+
+  static const std::unordered_map<std::string, TokenType> keywords;
 
   std::string_view content;
   unsigned int index = 0;

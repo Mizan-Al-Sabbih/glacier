@@ -1,8 +1,23 @@
 #include "lexer.h"
+#include "utility.h"
 
-bool Lexer::is_whitespace(char ch) {
-  return ch == ' ' || ch == '\t' || ch == '\n';
-}
+bool Lexer::is_whitespace(char ch) { return ch == ' ' || '\t' || '\n'; }
+
+const std::unordered_map<std::string, TokenType> Lexer::keywords = {
+    {"var", TokenType::K_Variable},    {"let", TokenType::K_Let},
+    {"func", TokenType::K_Function},   {"if", TokenType::K_If},
+    {"else", TokenType::K_Else},       {"for", TokenType::K_For},
+    {"while", TokenType::K_While},     {"return", TokenType::K_Return},
+    {"break", TokenType::K_Break},     {"continue", TokenType::K_Continue},
+    {"switch", TokenType::K_Switch},   {"case", TokenType::K_Case},
+    {"default", TokenType::K_Default}, {"struct", TokenType::K_Struct},
+    {"class", TokenType::K_Class},     {"enum", TokenType::K_Enum},
+    {"import", TokenType::K_Import},   {"true", TokenType::K_True},
+    {"false", TokenType::K_False},     {"none", TokenType::K_None},
+    {"super", TokenType::K_Super},     {"self", TokenType::K_Self},
+    {"String", TokenType::K_String},   {"Int", TokenType::K_Integer},
+    {"Float", TokenType::K_Float},     {"Bool", TokenType::K_Boolean},
+};
 
 char Lexer::peak(int offset) const {
   if (index + offset < content.length()) {
@@ -12,7 +27,7 @@ char Lexer::peak(int offset) const {
 }
 
 char Lexer::consume(int offset) {
-  char current_char = '\0';
+  char current_char = {};
   if (index < content.length()) {
     current_char = content.at(index);
     index += offset;
@@ -21,13 +36,15 @@ char Lexer::consume(int offset) {
 }
 
 TokenType Lexer::get_keyword(const std::string &value) const {
-  auto iter = Token::keywords.find(value);
-  if (iter != Token::keywords.end()) {
+  auto iter = keywords.find(value);
+  if (iter != keywords.end()) {
     return iter->second;
   } else {
     return TokenType::Identifier;
   }
 }
+
+TokenType Lexer::get_punctuator(const char &value) {}
 
 std::vector<Token> Lexer::analyze() {
   std::vector<Token> tokens;

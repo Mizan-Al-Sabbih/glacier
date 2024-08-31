@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
 
 #define TOKENS                                                                 \
   TOKEN(Plus)                                                                  \
@@ -62,7 +61,7 @@ struct Span {
   unsigned int start = 0;
   unsigned int end = 0;
 
-  auto length() const { return (end - start) + 1; }
+  unsigned int length() const { return (end - start) + 1; }
 };
 
 struct Token {
@@ -78,6 +77,4 @@ struct Token {
 #undef TOKEN
     }
   }
-
-  static const std::unordered_map<std::string, TokenType> keywords;
 };
